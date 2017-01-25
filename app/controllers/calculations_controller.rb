@@ -17,7 +17,8 @@ class CalculationsController < ApplicationController
 
     @word_count = @text.split.size
 
-    @occurrences =
+    @occurrences = @text.scan(@special_word).size
+
 
 
     # ================================================================================
