@@ -17,7 +17,7 @@ class CalculationsController < ApplicationController
 
     @word_count = @text.split.size
 
-    @occurrences = @text.scan(@special_word).size
+    @occurrences = @text.downcase.scan(@special_word).map(&:upcase).size
 
 
 
@@ -62,12 +62,12 @@ class CalculationsController < ApplicationController
     #   number of seconds as a result.
     # ================================================================================
 
-    @seconds = (@starting - @ending).round(2)
-    @minutes = ((@starting - @ending) / 60).round(2)
-    @hours = ((@starting - @ending) / 3600).round(2)
-    @days = ((@starting - @ending) / 86400).round(2)
-    @weeks = ((@starting - @ending) / 604800).round(2)
-    @years = ((@starting - @ending) / 220752000).round(2)
+    @seconds = (@starting - @ending)
+    @minutes = ((@starting - @ending) / 60)
+    @hours = ((@starting - @ending) / 3600)
+    @days = ((@starting - @ending) / 86400)
+    @weeks = ((@starting - @ending) / 604800)
+    @years = ((@starting - @ending) / 31536000)
 
     # ================================================================================
     # Your code goes above.
@@ -94,18 +94,18 @@ class CalculationsController < ApplicationController
 
     @range = @maximum - @minimum
 
-    @median = (@numbers.sort[((@numbers.sort.length - 1)/2).floor] +
-    @numbers.sort[((@numbers.sort.length - 1)/2).ceil])/2
+    @median = (@numbers.sort[((@numbers.sort.length - 1)/2)] +
+      @numbers.sort[((@numbers.sort.length)/2)])/2
 
     @sum = @numbers.inject(0){|sum,x| sum + x}
 
     @mean = (@sum / @count)
 
-    @variance = @numbers.inject(0.0) {|s,x| s + (x - @mean)**2}
+    @variance = (@numbers.inject(0.0){|s,x| s + (x - @mean)**2} / @count)
 
     @standard_deviation = @variance**(2**-1)
 
-    @mode =
+    @mode
 
 
     # ================================================================================
