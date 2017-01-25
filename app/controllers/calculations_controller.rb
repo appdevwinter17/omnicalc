@@ -17,7 +17,9 @@ class CalculationsController < ApplicationController
 
     @word_count = @text.split.size
 
-    @occurrences = @text.count " "
+    @occurrences =
+
+
     # ================================================================================
     # Your code goes above.
     # ================================================================================
@@ -59,12 +61,12 @@ class CalculationsController < ApplicationController
     #   number of seconds as a result.
     # ================================================================================
 
-    @seconds = (@starting - @ending)
-    @minutes = ((@starting - @ending) / 60)
-    @hours = ((@starting - @ending) / 3600)
-    @days = ((@starting - @ending) / 86400)
-    @weeks = ((@starting - @ending) / 604800)
-    @years = ((@starting - @ending) / 220752000)
+    @seconds = (@starting - @ending).round(2)
+    @minutes = ((@starting - @ending) / 60).round(2)
+    @hours = ((@starting - @ending) / 3600).round(2)
+    @days = ((@starting - @ending) / 86400).round(2)
+    @weeks = ((@starting - @ending) / 604800).round(2)
+    @years = ((@starting - @ending) / 220752000).round(2)
 
     # ================================================================================
     # Your code goes above.
@@ -91,17 +93,19 @@ class CalculationsController < ApplicationController
 
     @range = @maximum - @minimum
 
-    @median = @numbers
+    @median = (@numbers.sort[((@numbers.sort.length - 1)/2).floor] +
+    @numbers.sort[((@numbers.sort.length - 1)/2).ceil])/2
 
-    @sum = "Replace this string with your answer."
+    @sum = @numbers.inject(0){|sum,x| sum + x}
 
-    @mean = "Replace this string with your answer."
+    @mean = (@sum / @count)
 
-    @variance = "Replace this string with your answer."
+    @variance = @numbers.inject(0.0) {|s,x| s + (x - @mean)**2}
 
-    @standard_deviation = "Replace this string with your answer."
+    @standard_deviation = @variance**(2**-1)
 
-    @mode = "Replace this string with your answer."
+    @mode =
+
 
     # ================================================================================
     # Your code goes above.
